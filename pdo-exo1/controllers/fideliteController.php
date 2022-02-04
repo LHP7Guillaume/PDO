@@ -1,11 +1,13 @@
 <?php
-require_once '../models/fidelite.php';
+require_once '../config.php';
+require_once '../models/DataBase.php';
+require_once '../models/Clients.php';
 
 
 
 if (isset($_GET["results"])) {
-    $fideliteObj = new Fidelite();
-    $fideliteArray = $fideliteObj->namefidelite();
+    $fideliteObj = new Clients();
+    $fideliteArray = $fideliteObj->getClientsWithCardType(1, 4);
 
     
 }

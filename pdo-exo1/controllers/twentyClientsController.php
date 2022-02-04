@@ -1,11 +1,13 @@
 <?php
-require_once '../models/twentyClients.php';
+require_once '../config.php';
+require_once '../models/DataBase.php';
+require_once '../models/Clients.php';
 
 
 
 if (isset($_GET["results"])) {
-    $twentyClientsObj = new TwentyClients();
-    $twentyClientsArray = $twentyClientsObj->nameTwentyClients();
+    $twentyClientsObj = new Clients();
+    $twentyClientsArray = $twentyClientsObj->getSomeClients(20);
 
     
 }

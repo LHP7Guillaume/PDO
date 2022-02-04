@@ -1,11 +1,13 @@
 <?php
-require_once '../models/ultimate.php';
+require_once '../config.php';
+require_once '../models/DataBase.php';
+require_once '../models/Clients.php';
 
 
 
 if (isset($_GET["results"])) {
-    $ultimateObj = new Ultimate();
-    $ultimateArray = $ultimateObj->nameUltimate();
+    $ultimateObj = new Clients();
+    $ultimateArray = $ultimateObj->getClientsUltimate();
 
     
 }

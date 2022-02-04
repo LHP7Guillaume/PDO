@@ -37,13 +37,15 @@ require '../controllers/ultimateController.php';
                 <p>Nom : <?= $ultimate['lastName'] ?></p>
                 <p>Prénom :<?= $ultimate['firstName'] ?></p>
                 <p>Date de naissance : <?= $ultimate['birthDate'] ?></p>
-                <p>Carte de fidélité : <?= $ultimate['cardNumber'] ?></p>
-                <p>Numéro de carte : <?= $ultimate['type'] ?></p>
-                
+                <p>Carte de fidélité : <?= $ultimate['cardTypesID'] == 1 ? 'Oui' : 'Non' ?></p>
+
+                <?php if ($ultimate['cardTypesID'] == 1) { ?>
+                    <p>Numéro de carte : <?= $ultimate['cardNumber'] ?></p>
+                <?php  } ?>
+
             </div>
         <?php } ?>
 
-        
     </div>
 
 
