@@ -1,6 +1,6 @@
 <?php
 
-require_once '../controllers/homeController.php';
+require_once '../controllers/gestionPatientController.php';
 
 
 ?>
@@ -20,17 +20,44 @@ require_once '../controllers/homeController.php';
 
     <link rel="stylesheet" href="../assets/css/style.css">
 
-    <title>PDO-Doctolib</title>
+    <a href="https://icons8.com/icon/MS2XYm4irEPy/user"></a>
+
+    <title>Gestion Patients</title>
 </head>
 
 <body class="">
 
-    <h1>hello world</h1>
+
+    <h1 class="text-center mt-5 mt-4">Listes des patients</h1>
+
+    <a href="home.php?results=home" class="mt-3 btn btn-outline-dark">Accueil</a>
 
     <a href="addPatient.php?results=addPatient" class="mt-3 btn btn-outline-dark">formulaire</a>
 
-    <a href="gestionPatient.php?results=gestionPatient" class="mt-3 btn btn-outline-dark">Gestion des patients</a>
-  
+    <a href="infoPatient.php?results=infoPatient" class="mt-3 btn btn-outline-dark">Informations patients</a>
+
+
+    <div class="container mt-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Informations patient</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">DeNormandie</th>
+                    <td>Guillaume</td>
+
+                    <td><a href=""></a></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>

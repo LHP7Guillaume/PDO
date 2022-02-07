@@ -1,6 +1,6 @@
 <?php
 
-require_once '../controllers/gestionPatientController.php';
+require_once '../controllers/infoPatientController.php';
 
 
 ?>
@@ -22,22 +22,30 @@ require_once '../controllers/gestionPatientController.php';
 
     <a href="https://icons8.com/icon/MS2XYm4irEPy/user"></a>
 
-    <title>Gestion Patients</title>
+    <title>Informations Patients</title>
 </head>
 
 <body class="">
 
 
-    <h1 class="text-center mt-5 mt-4">Listes des patients</h1>
+    <h1 class="text-center mt-5 mt-4">Informations patients</h1>
+
+    <a href="home.php?results=home" class="mt-3 btn btn-outline-dark">Accueil</a>
+
+    <a href="addPatient.php?results=addPatient" class="mt-3 btn btn-outline-dark">formulaire</a>
+
+    <a href="gestionPatient.php?results=gestionPatient" class="mt-3 btn btn-outline-dark">Gestion des patients</a>
 
 
     <div class="container mt-4">
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">Nom</th>
                     <th scope="col">Prénom</th>
-                    <th scope="col">Informations patient</th>
+                    <th scope="col">Date de naissance</th>
+                    <th scope="col">Mail</th>
+                    <th scope="col">N° de téléphone</th>
 
                 </tr>
             </thead>
@@ -45,8 +53,18 @@ require_once '../controllers/gestionPatientController.php';
                 <tr>
                     <th scope="row">DeNormandie</th>
                     <td>Guillaume</td>
-
-                    <td><a href=""></a></td>
+                    <td>06/05/1986</td>
+                    <td>Guillaume@mail.com</td>
+                    <td>118218</td>
+                    
+                </tr>
+                <tr>
+                    <th scope="row">DeNormandie</th>
+                    <td>Guillaume</td>
+                    <td>06/05/1986</td>
+                    <td>Guillaume@mail.com</td>
+                    <td>118218</td>
+                    
                 </tr>
 
             </tbody>
