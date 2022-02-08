@@ -26,34 +26,73 @@ require_once '../controllers/gestionPatientController.php';
 </head>
 
 <body class="">
+    <nav class="navbar navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="home.php?results=home">Accueil</a>
+            <a class="navbar-brand" href="addPatient.php?results=addPatient">Ajout d'un patient</a>
+            <a class="navbar-brand" href="infoPatient.php?results=infoPatient">Informations patients</a>
+
+        </div>
+    </nav>
+
+    <h1 class="text-center mt-5 ">Listes des patients</h1>
 
 
-    <h1 class="text-center mt-5 mt-4">Listes des patients</h1>
 
-    <a href="home.php?results=home" class="mt-3 btn btn-outline-dark">Accueil</a>
-
-    <a href="addPatient.php?results=addPatient" class="mt-3 btn btn-outline-dark">formulaire</a>
-
-    <a href="infoPatient.php?results=infoPatient" class="mt-3 btn btn-outline-dark">Informations patients</a>
-
-
-    <div class="container mt-4">
+    <div class="container col-10 mt-4">
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Nom</th>
                     <th scope="col">Prénom</th>
                     <th scope="col">Informations patient</th>
-
+                    <th scope="col">Supprimer la fiche patient</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">DeNormandie</th>
-                    <td>Guillaume</td>
 
-                    <td><a href=""></a></td>
-                </tr>
+                <?php foreach ($gestionArray as $patient) { ?>
+                    <tr>
+                        <th scope="row"><?= $patient['lastname'] ?></th>
+                        <td><?= $patient['firstname'] ?></td>
+                        <td>
+                            <form action="infoPatient.php" method="post">
+                                <!-- input de type hidden = input non visible coté FRONT 
+                            il permet de recuperer une valeur à l'aide du Name-->
+
+                                <input type="hidden" name="idPatient" value="<?= $patient["id"] ?>">
+                                <button class="btn btn-outline-primary btn-sm">Plus d'info</button>
+                            </form>
+                        </td>
+                        <td>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Supprimer fiche
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Supprimer fiche patient</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Attention, vous etes sur le point de supprimer une fiche patient
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Annuler</button>
+                                            <button type="button" class="btn btn-danger">Supprimer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                <?php } ?>
+
+
 
             </tbody>
         </table>

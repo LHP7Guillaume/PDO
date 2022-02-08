@@ -44,5 +44,25 @@ class Patients extends DataBase
         }
     }
 
+    public function getAllPatient(): array
+    {
+        $base = $this->connectDb();
+        $sql = "SELECT `id`, `lastname`, `firstname`, `birthdate`, `phone`, `mail` FROM `patients` ORDER BY `id` DESC";
+        
+        $resultQuery = $base->query($sql);
+        return $resultQuery->fetchAll();
+    }
+
+    public function getOnePatient($id): array
+    {
+        $base = $this->connectDb();
+        $sql = "SELECT `id`,`lastname`, `firstname`, `birthdate`, `phone`, `mail` FROM `patients` WHERE `id`= :id";
+        $resultQuery = $base->prepare($sql);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_INT);
+        $resultQuery->execute();
+        
+        return $resultQuery->fetch();
+    }
     
 }
+

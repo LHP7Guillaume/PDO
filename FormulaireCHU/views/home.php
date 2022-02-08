@@ -25,13 +25,15 @@ require_once '../controllers/homeController.php';
 
 <body class="">
 
-    <h1>hello world</h1>
+    <nav class="navbar navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="addPatient.php?results=addPatient">Ajout d'un patient</a>
+            <a class="navbar-brand" href="gestionPatient.php?results=gestionPatient">Gestion des patients</a>
+            <a class="navbar-brand" href="infoPatient.php?results=infoPatient">Informations patients</a>
+            
+        </div>
+    </nav>
 
-    <a href="addPatient.php?results=addPatient" class="mt-3 btn btn-outline-dark">formulaire</a>
-
-    <a href="gestionPatient.php?results=gestionPatient" class="mt-3 btn btn-outline-dark">Gestion des patients</a>
-  
-    <a href="infoPatient.php?results=infoPatient" class="mt-3 btn btn-outline-dark">Informations patients</a>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>

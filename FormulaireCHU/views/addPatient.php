@@ -27,15 +27,18 @@ require_once '../controllers/addPatientController.php';
 
 <body class="">
 
+<nav class="navbar navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="home.php?results=home">Accueil</a>
+            <a class="navbar-brand" href="gestionPatient.php?results=gestionPatient">Gestion des patients</a>
+            <a class="navbar-brand" href="infoPatient.php?results=infoPatient">Informations patients</a>
+            
+        </div>
+    </nav>
+
     <h1 class="text-center mt-4">Nouveau patient</h1>
 
-    <a href="gestionPatient.php?results=gestionPatient" class="mt-3 btn btn-outline-dark">Gestion des patients</a>
-
-    <a href="home.php?results=home" class="mt-3 btn btn-outline-dark">Accueil</a>
-
-    <a href="infoPatient.php?results=infoPatient" class="mt-3 btn btn-outline-dark">Informations patients</a>
-
-    <div class="container mt-3 mb-5">
+    <div class="container col-6 mt-3 mb-5">
 
         <?php if ($addPatientOk) { ?>
             <p>Le patient a bien été enregistré</p>
@@ -86,7 +89,7 @@ require_once '../controllers/addPatientController.php';
                 <div class="g-recaptcha" data-sitekey="6LcoAWMeAAAAAEcKRd7ejrnwF5jFyxNF2raxYGfP"></div>
 
                 <div class="text-center mt-4">
-                    <button type="submit" href="" class="btn btn-primary">Nouveau Patient</button>
+                    <button type="submit" href="" class="btn btn-primary">Enregistrer le nouveau Patient</button>
                 </div>
             </form>
         <?php   } ?>
