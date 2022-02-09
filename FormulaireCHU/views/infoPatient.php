@@ -38,11 +38,18 @@ require_once '../controllers/infoPatientController.php';
 
     <h1 class="text-center mt-5">Informations patients</h1>
 
+    <?php if ($modifyPatientOk == true) { ?>
+        <p class="text-center text-success">
+            La modification a été effectué avec succès.
+        </p>
+    <?php } ?>
+
+
     <div class="container col-10 mt-4">
 
         <?php
         // Nous mettons en place une condition pour s'assurer que nous avons selectionné un patient avec le bouton +d'info
-        if (isset($patientInfo) || isset($_POST["modifyBtn"])) { ?>
+        if (isset($patientInfo)) { ?>
             <form class="container col-5" action="" method="POST" novalidate>
                 <div class="mb-3">
                     <label for="nom" class="form-label mt-3">Nom : </label><span class="text-danger">
@@ -57,33 +64,39 @@ require_once '../controllers/infoPatientController.php';
                         $arrayError["prenom"] ?? "";
                         ?>
                     </span>
-                    <input value="<?= $patientInfo['firstname'] ?>" name=" prenom" type="text" class="form-control" id="prenom" placeholder="Ex : Jean..." disabled>
+                    <input value="<?= $patientInfo['firstname'] ?>" name=" prenom" type="text" class="form-control" id="prenom" placeholder="Ex : Jean..." <?= isset($_POST["modifyBtn"]) ? "" : 'disabled' ?>>
 
                     <label for="birthDate" class="form-label mt-3">Date de naissance : </label><span class="text-danger">
                         <?=
                         $arrayError["birthDate"] ?? "";
                         ?>
                     </span>
-                    <input value="<?= $patientInfo['birthdate'] ?>" name=" birthDate" type="date" class="form-control" id="birthDate" placeholder="24/12/2021" disabled>
+                    <input value="<?= $patientInfo['birthdate'] ?>" name=" birthDate" type="date" class="form-control" id="birthDate" placeholder="24/12/2021" <?= isset($_POST["modifyBtn"]) ? "" : 'disabled' ?>>
 
                     <label for="phone" class="form-label mt-3">N° de téléphone : </label><span class="text-danger">
                         <?=
                         $arrayError["phone"] ?? " ";
                         ?>
                     </span>
-                    <input value="<?= $patientInfo['phone'] ?>" name="phone" type="tel" class="form-control" id="phone" placeholder="061256XXXX" disabled>
+                    <input value="<?= $patientInfo['phone'] ?>" name="phone" type="tel" class="form-control" id="phone" placeholder="061256XXXX" <?= isset($_POST["modifyBtn"]) ? "" : 'disabled' ?>>
 
                     <label for="mail" class="form-label mt-3">Adresse mail : </label><span class="text-danger">
                         <?=
                         $arrayError["mail"] ?? " ";
                         ?>
                     </span>
-                    <input value="<?= $patientInfo['mail'] ?>" name="mail" type="email" class="form-control" id="mail" placeholder="Ex : hopital@gmail.com" disabled>
+                    <input value="<?= $patientInfo['mail'] ?>" name="mail" type="email" class="form-control" id="mail" placeholder="Ex : hopital@gmail.com" <?= isset($_POST["modifyBtn"]) ? "" : 'disabled' ?>>
 
                 </div>
 
                 <div class="text-center mt-4">
-                    <button type="submit" name="modifyBtn" class="btn btn-primary">Modifier la fiche du patient</button>
+                    <input type="hidden" name="idPatient" value="<?= $patientInfo['id'] ?>">
+
+                    <?php if (!isset($_POST["modifyBtn"])) { ?>
+                        <button type="submit" name="modifyBtn" class="btn btn-primary">Modifier la fiche du patient</button>
+                    <?php } else { ?>
+                        <button type="submit" name="updateBtn" class="btn btn-success">Enregistrer les modifications</button>
+                    <?php   } ?>
                 </div>
             </form>
 
