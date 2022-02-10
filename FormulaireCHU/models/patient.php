@@ -79,4 +79,15 @@ class Patients extends DataBase
 
         $resultQuery->execute();
     }
+
+    public function deletePatient($id): void
+    {
+        $base = $this->connectDb();
+        $sql = "DELETE FROM `patients`WHERE `id`= :id";
+        $resultQuery = $base->prepare($sql);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_INT);
+        $resultQuery->execute();
+
+        
+    }
 }

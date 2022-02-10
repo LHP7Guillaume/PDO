@@ -25,81 +25,94 @@ require_once '../controllers/gestionPatientController.php';
     <title>Gestion Patients</title>
 </head>
 
-<body class="">
-    <nav class="navbar navbar-light bg-light fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="home.php?results=home">Accueil</a>
-            <a class="navbar-brand" href="addPatient.php?results=addPatient">Ajout d'un patient</a>
-            <a class="navbar-brand" href="infoPatient.php?results=infoPatient">Informations patients</a>
+<header class="mb-5">
 
-        </div>
-    </nav>
-
-    <h1 class="text-center mt-5 ">Listes des patients</h1>
+    <div class="row">
+        <a class="col-lg btn btn-outline-secondary fs-3" href="home.php?results=home">Accueil</a>
+        <a class="col-lg btn btn-outline-secondary fs-3" href="addPatient.php?results=addPatient">Ajout d'un patient</a>
+        <a class="col-lg btn btn-outline-secondary fs-3" href="infoPatient.php?results=infoPatient">Informations patients</a>
+        <a class="col-lg btn btn-outline-secondary fs-3" href="">Prise de rendez-vous</a>
+    </div>
+</header>
 
 
+<div class="container mycontainer col-10 mt-4">
 
-    <div class="container col-10 mt-4">
-        <table class="table">
-            <thead>
+    <h1 class="text-center mt-5 mb-5 ">Listes des patients</h1>
+
+
+    <table class="table shadow p-5">
+        <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Informations patient</th>
+                <th scope="col">Supprimer la fiche patient</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <?php foreach ($gestionArray as $patient) { ?>
                 <tr>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Prénom</th>
-                    <th scope="col">Informations patient</th>
-                    <th scope="col">Supprimer la fiche patient</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <?php foreach ($gestionArray as $patient) { ?>
-                    <tr>
-                        <th scope="row"><?= $patient['lastname'] ?></th>
-                        <td><?= $patient['firstname'] ?></td>
-                        <td>
-                            <form action="infoPatient.php" method="post">
-                                <!-- input de type hidden = input non visible coté FRONT 
+                    <th scope="row"><?= $patient['lastname'] ?></th>
+                    <td><?= $patient['firstname'] ?></td>
+                    <td>
+                        <form action="infoPatient.php" method="post">
+                            <!-- input de type hidden = input non visible coté FRONT 
                             il permet de recuperer une valeur à l'aide du Name-->
 
-                                <input type="hidden" name="idPatient" value="<?= $patient["id"] ?>">
-                                <button class="btn btn-outline-primary btn-sm">Plus d'info</button>
-                            </form>
-                        </td>
-                        <td>
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Supprimer fiche
-                            </button>
+                            <input type="hidden" name="idPatient" value="<?= $patient["id"] ?>">
+                            <button class="btn btn-outline-primary btn-sm">Plus d'info</button>
+                        </form>
+                    </td>
+                    <td>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-<?= $patient["id"] ?>">
+                            Supprimer fiche
+                        </button>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Supprimer fiche patient</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Attention, vous etes sur le point de supprimer une fiche patient
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Annuler</button>
-                                            <button type="button" class="btn btn-danger">Supprimer</button>
-                                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteModal-<?= $patient["id"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Supprimer fiche patient</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p> Attention, vous etes sur le point de supprimer une fiche patient</p>
+                                        <p><?= $patient["lastname"] . " " . $patient["firstname"] ?></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Annuler</button>
+                                        <form action="" method="POST">
+                                            <input type="hidden" name="idDeletePatient" value="<?= $patient["id"] ?>">
+                                            <button type="submit" name="deletePatient" class="btn btn-danger">Supprimer</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                        </td>
-                    </tr>
-                <?php } ?>
+                        </div>
+                    </td>
+                </tr>
+            <?php } ?>
 
 
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
+</div>
+
+
+
+<footer class="mt-5 ">
+    <div>
+    <h2 class="text-center fs-6 p-4">@ LaManu 2022</h2>
     </div>
+</footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-    </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+</script>
 
 </body>
 

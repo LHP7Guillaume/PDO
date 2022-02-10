@@ -26,19 +26,23 @@ require_once '../controllers/addPatientController.php';
 </head>
 
 <body class="">
+    <header class="mb-5">
+      
+        <div class="row">
+        <a class="col-lg btn btn-outline-secondary fs-3" href="home.php?results=home">Accueil</a>
+        <a class="col-lg btn btn-outline-secondary fs-3" href="gestionPatient.php?results=gestionPatient">Gestion des patients</a>
+        <a class="col-lg btn btn-outline-secondary fs-3" href="infoPatient.php?results=infoPatient">Informations patients</a>
+        <a class="col-lg btn btn-outline-secondary fs-3" href="">Prise de rendez-vous</a>
+    </div>
+    </header>
 
-<nav class="navbar navbar-light bg-light fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="home.php?results=home">Accueil</a>
-            <a class="navbar-brand" href="gestionPatient.php?results=gestionPatient">Gestion des patients</a>
-            <a class="navbar-brand" href="infoPatient.php?results=infoPatient">Informations patients</a>
-            
-        </div>
-    </nav>
 
-    <h1 class="text-center mt-4">Nouveau patient</h1>
 
-    <div class="container col-6 mt-3 mb-5">
+    
+
+    <div class="container mycontainer mt-5 col-6 mt-3 mb-5 shadow p-5">
+
+        <h1 class="text-center mt-4">Nouveau patient</h1>
 
         <?php if ($addPatientOk) { ?>
             <p>Le patient a bien été enregistré</p>
@@ -86,7 +90,12 @@ require_once '../controllers/addPatientController.php';
 
                 </div>
 
-                <div class="g-recaptcha" data-sitekey="6LcoAWMeAAAAAEcKRd7ejrnwF5jFyxNF2raxYGfP"></div>
+                <span class="text-danger">
+                    <?=
+                    $arrayError["reCaptcha"] ?? " ";
+                    ?>
+                </span>
+                <div class="g-recaptcha" data-sitekey="6LdzPW0eAAAAADJs5UEUokjHWzUNeueMUnl5YAjs"></div>
 
                 <div class="text-center mt-4">
                     <button type="submit" href="" class="btn btn-primary">Enregistrer le nouveau Patient</button>
@@ -96,7 +105,11 @@ require_once '../controllers/addPatientController.php';
     </div>
 
 
-
+    <footer class="mt-5 ">
+        <div>
+        <h2 class="text-center fs-6 p-4">@ LaManu 2022</h2>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>

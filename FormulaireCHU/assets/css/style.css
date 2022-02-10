@@ -1,0 +1,41 @@
+.mybutton{
+    height: 20rem;
+}
+
+footer{
+    background-color: lightcoral;
+
+}
+
+body{
+   background-image: url();
+   /* background-repeat:no-repeat;
+   background-size:contain; */
+}
+
+.myPhoto {
+background-image: url(../img/addpatient.jpeg);
+background-repeat:no-repeat;
+background-size:cover;
+}
+.myPhotoTwo{
+    background-image: url(../img/gouzou-lit.jpeg);
+background-repeat:no-repeat;
+background-size:cover;
+}
+.myPhotoThree{
+    background-image: url(../img/gouzou-info.jpeg);
+background-repeat:no-repeat;
+background-size:cover;
+}
+.myPhotoFour{
+    background-image: url(../img/9da9bae2346de4c95d38b0970c2d3e34.jpeg);
+background-repeat:no-repeat;
+background-size:cover;
+}
+
+/* .mycontainer{
+    background-color: white;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.1);
+
+} */

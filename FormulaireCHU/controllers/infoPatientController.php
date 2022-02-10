@@ -57,15 +57,15 @@ if (isset($_POST['updateBtn'])) {
     }
 
     $patientMail = new Patients();
-    if (isset($_POST["mail"])) {
+if (isset($_POST["mail"]) && $_POST["mail"]!= $_POST["oldMail"]) {
         if (empty($_POST["mail"])) {
             $arrayError["mail"] = "Veuillez saisir votre Mail";
         } elseif (!filter_var($_POST["mail"], FILTER_VALIDATE_EMAIL)) {
             $arrayError["mail"] = "Le format de votre mail est invalide";
         } 
-        // elseif (!$patientMail->checkFreeMail($_POST['mail'])) {
-        //     $arrayError["mail"] = "Cette adresse mail est déjà utilisée";
-        // }
+        elseif (!$patientMail->checkFreeMail($_POST['mail'])) {
+            $arrayError["mail"] = "Cette adresse mail est déjà utilisée";
+        }
     }
 
     if (count($arrayError) == 0) {
@@ -88,4 +88,6 @@ if (isset($_POST['updateBtn'])) {
         $patientObj = new Patients();
         $patientInfo = $patientObj->getOnePatient($id);
     }
+
+
 }

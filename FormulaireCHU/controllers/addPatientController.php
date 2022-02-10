@@ -1,7 +1,5 @@
 <?php
 
-var_dump($_POST);
-
 require_once '../config.php';
 require_once '../models/DataBase.php';
 require_once '../models/Patient.php';
@@ -9,12 +7,10 @@ require_once '../models/Patient.php';
 $regexNom = "/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,30}$/";
 $regexPseudo = "/^[0123456789a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð,.'-]{2,30}$/";
 $regexMail = "/^([a-z.-]+)@([a-z]+).([a-z]){2,4}$/";
-// regexDate ne fonctionne pas ????
-// $regexDate = "/^(19|20)\d\d([-])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$/";
 $regexDate = "/^[0-9\-]+$/";
 $regexPhone = "/^(?:(?:\+|00)33[\s.-]{0,3}(?:(0)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/";
 $arrayError = [];
-// creer une variable pour cacher ou montrer ton formulaire
+
 $addPatientOk = false;
 
 if (!empty($_POST)) {
@@ -63,6 +59,22 @@ if (!empty($_POST)) {
         }
     }
 
+    if (empty($_POST['g-recaptcha-response'])) {
+        $arrayError['reCaptcha'] = 'Veuillez valider le reCAPTCHA';
+    } else {
+        // Mise en place des paramètres pour l'analyse du reCaptcha
+        $captcha = $_POST['g-recaptcha-response'];
+        $secretKey = '6LdzPW0eAAAAAAZDxWrwWqDA2py8XupynCiJhIpi';
+        $ip = $_SERVER['REMOTE_ADDR'];
+
+        $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha);
+        $response = file_get_contents($url);
+        $responseKeys = json_decode($response, true);
+
+        if (!$responseKeys["success"]) {
+            $arrayError['reCaptcha'] = 'Bots interdit sur ce site';
+        }
+    }
 
     if (count($arrayError) == 0) {
         // strtoupper = en majuscule / ucwords = 1ere lettre en majuscule
