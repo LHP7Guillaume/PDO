@@ -32,7 +32,7 @@ require_once '../controllers/addPatientController.php';
         <a class="col-lg btn btn-outline-secondary fs-3" href="home.php?results=home">Accueil</a>
         <a class="col-lg btn btn-outline-secondary fs-3" href="gestionPatient.php?results=gestionPatient">Gestion des patients</a>
         <a class="col-lg btn btn-outline-secondary fs-3" href="infoPatient.php?results=infoPatient">Informations patients</a>
-        <a class="col-lg btn btn-outline-secondary fs-3" href="">Prise de rendez-vous</a>
+        <a class="col-lg btn btn-outline-secondary fs-3" href="rdv.php?results=rdv">Prise de rendez-vous</a>
     </div>
     </header>
 

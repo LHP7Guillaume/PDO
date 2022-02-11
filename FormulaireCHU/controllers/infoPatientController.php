@@ -14,7 +14,7 @@ $regexDate = "/^[0-9\-]+$/";
 $regexPhone = "/^(?:(?:\+|00)33[\s.-]{0,3}(?:(0)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/";
 $arrayError = [];
 // creer une variable pour cacher ou montrer ton formulaire
-$modifyPatientOk = false;
+$modifyPatientOk = 0;
 
 if (isset($_POST["idPatient"])) {
     $id = htmlspecialchars(trim($_POST["idPatient"]));
@@ -57,13 +57,12 @@ if (isset($_POST['updateBtn'])) {
     }
 
     $patientMail = new Patients();
-if (isset($_POST["mail"]) && $_POST["mail"]!= $_POST["oldMail"]) {
+    if (isset($_POST["mail"]) && $_POST["mail"] != $_POST["oldMail"]) {
         if (empty($_POST["mail"])) {
             $arrayError["mail"] = "Veuillez saisir votre Mail";
         } elseif (!filter_var($_POST["mail"], FILTER_VALIDATE_EMAIL)) {
             $arrayError["mail"] = "Le format de votre mail est invalide";
-        } 
-        elseif (!$patientMail->checkFreeMail($_POST['mail'])) {
+        } elseif (!$patientMail->checkFreeMail($_POST['mail'])) {
             $arrayError["mail"] = "Cette adresse mail est déjà utilisée";
         }
     }
@@ -80,14 +79,12 @@ if (isset($_POST["mail"]) && $_POST["mail"]!= $_POST["oldMail"]) {
         $patient = new Patients();
         $patient->modifyPatient($id, $lastname, $firstname, $mail, $phone, $birthdate);
         $patientInfo = $patientObj->getOnePatient($id);
-        $modifyPatientOk = true;
+        $modifyPatientOk = 1;
     }
-    
+
     if (isset($_POST["modifyBtn"])) {
         $id = htmlspecialchars(trim($_POST["idPatient"]));
         $patientObj = new Patients();
         $patientInfo = $patientObj->getOnePatient($id);
     }
-
-
 }

@@ -34,7 +34,7 @@ require_once '../controllers/infoPatientController.php';
             <a class="col-lg btn btn-outline-secondary fs-3 round-0" href="home.php?results=home">Accueil</a>
             <a class="col-lg btn btn-outline-secondary fs-3" href="addPatient.php?results=addPatient">Ajout d'un patient</a>
             <a class="col-lg btn btn-outline-secondary fs-3" href="gestionPatient.php?results=gestionPatient">Gestion des patients</a>
-            <a class="col-lg btn btn-outline-secondary fs-3" href="">Prise de rendez-vous</a>
+            <a class="col-lg btn btn-outline-secondary fs-3" href="rdv.php?results=rdv">Prise de rendez-vous</a>
         </div>
     </header>
 
@@ -42,12 +42,13 @@ require_once '../controllers/infoPatientController.php';
     <div class="container mycontainer col-8 mb-5 mt-5 shadow p-5">
 
         <h1 class="text-center mt-5">Informations patients</h1>
-
-        <?php if ($modifyPatientOk == true) { ?>
+        
+        <!-- cassé car avant le "toast" -->
+        <!-- <?php if ($modifyPatientOk == true) { ?>
             <p class="text-center text-success">
                 La modification a été effectué avec succès.
             </p>
-        <?php } ?>
+        <?php } ?> -->
 
         <?php
         // Nous mettons en place une condition pour s'assurer que nous avons selectionné un patient avec le bouton +d'info
@@ -59,28 +60,28 @@ require_once '../controllers/infoPatientController.php';
                         $arrayError["nom"] ?? " ";
                         ?>
                     </span>
-                    <input value="<?= $patientInfo['lastname'] ?>" name="nom" type="text" class="form-control" id="nom" placeholder="Ex : Dupont..." <?= (isset($_POST["modifyBtn"]) || count($arrayError) != 0) ? "" : 'disabled' ?>>
+                    <input value="<?= isset($_POST["nom"]) ? htmlspecialchars($_POST["nom"]) : $patientInfo['lastname'] ?>" name="nom" type="text" class="form-control" id="nom" placeholder="Ex : Dupont..." <?= (isset($_POST["modifyBtn"]) || count($arrayError) != 0) ? "" : 'disabled' ?>>
 
                     <label for="prenom" class="form-label mt-3">Prénom : </label><span class="text-danger">
                         <?=
                         $arrayError["prenom"] ?? "";
                         ?>
                     </span>
-                    <input value="<?= $patientInfo['firstname'] ?>" name=" prenom" type="text" class="form-control" id="prenom" placeholder="Ex : Jean..." <?= (isset($_POST["modifyBtn"]) || count($arrayError) != 0) ? "" : 'disabled' ?>>
+                    <input value="<?= isset($_POST["prenom"]) ? htmlspecialchars($_POST["prenom"]) : $patientInfo['firstname'] ?>" name=" prenom" type="text" class="form-control" id="prenom" placeholder="Ex : Jean..." <?= (isset($_POST["modifyBtn"]) || count($arrayError) != 0) ? "" : 'disabled' ?>>
 
                     <label for="birthDate" class="form-label mt-3">Date de naissance : </label><span class="text-danger">
                         <?=
                         $arrayError["birthDate"] ?? "";
                         ?>
                     </span>
-                    <input value="<?= $patientInfo['birthdate'] ?>" name=" birthDate" type="date" class="form-control" id="birthDate" placeholder="24/12/2021" <?= (isset($_POST["modifyBtn"]) || count($arrayError) != 0) ? "" : 'disabled' ?>>
+                    <input value="<?= isset($_POST["birthDate"]) ? ($_POST["birthDate"]) : $patientInfo['birthdate'] ?>" name=" birthDate" type="date" class="form-control" id="birthDate" placeholder="24/12/2021" <?= (isset($_POST["modifyBtn"]) || count($arrayError) != 0) ? "" : 'disabled' ?>>
 
                     <label for="phone" class="form-label mt-3">N° de téléphone : </label><span class="text-danger">
                         <?=
                         $arrayError["phone"] ?? " ";
                         ?>
                     </span>
-                    <input value="<?= $patientInfo['phone'] ?>" name="phone" type="tel" class="form-control" id="phone" placeholder="061256XXXX" <?= (isset($_POST["modifyBtn"]) || count($arrayError) != 0) ? "" : 'disabled' ?>>
+                    <input value="<?= isset($_POST["phone"]) ? htmlspecialchars($_POST["phone"]) : $patientInfo['phone'] ?>" name="phone" type="tel" class="form-control" id="phone" placeholder="061256XXXX" <?= (isset($_POST["modifyBtn"]) || count($arrayError) != 0) ? "" : 'disabled' ?>>
 
                     <label for="mail" class="form-label mt-3">Adresse mail : </label><span class="text-danger">
                         <?=
@@ -88,7 +89,7 @@ require_once '../controllers/infoPatientController.php';
                         ?>
                     </span>
                     <input type="hidden" name="oldMail" value="<?= $patientInfo['mail'] ?>">
-                    <input value="<?= $patientInfo['mail'] ?>" name="mail" type="email" class="form-control" id="mail" placeholder="Ex : hopital@gmail.com" <?= (isset($_POST["modifyBtn"]) || count($arrayError) != 0) ? "" : 'disabled' ?>>
+                    <input value="<?= isset($_POST["mail"]) ? htmlspecialchars($_POST["mail"]) : $patientInfo['mail'] ?>" name="mail" type="email" class="form-control" id="mail" placeholder="Ex : hopital@gmail.com" <?= (isset($_POST["modifyBtn"]) || count($arrayError) != 0) ? "" : 'disabled' ?>>
 
                 </div>
 
@@ -101,9 +102,11 @@ require_once '../controllers/infoPatientController.php';
                         <button type="submit" name="modifyBtn" class="btn btn-outline-primary">Modifier la fiche du patient</button>
                     <?php } else { ?>
                         <button type="submit" name="updateBtn" class="btn btn-outline-success">Enregistrer les modifications</button>
+
                     <?php   } ?>
                 </div>
             </form>
+
 
         <?php   } else { ?>
             <div class="text-center">
@@ -114,6 +117,20 @@ require_once '../controllers/infoPatientController.php';
 
     </div>
 
+    <!-- toast -->
+
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success text-white">
+                <strong class="me-auto">Hopital Gouzou</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                La modification a été effectué avec succès.
+            </div>
+        </div>
+    </div>
+
 
     <footer class="mt-5 ">
         <div>
@@ -122,6 +139,23 @@ require_once '../controllers/infoPatientController.php';
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+    <script>
+        var toastTrigger = document.getElementById('liveToastBtn')
+        var toastLiveExample = document.getElementById('liveToast')
+        // if (toastTrigger) {
+        //     toastTrigger.addEventListener('click', function() {
+        //         var toast = new bootstrap.Toast(toastLiveExample)
+
+        //         toast.show()
+        //     })
+        // }
+
+        if (<?= $modifyPatientOk ?>) {
+            var toast = new bootstrap.Toast(toastLiveExample)
+
+            toast.show()
+        }
     </script>
 
 </body>

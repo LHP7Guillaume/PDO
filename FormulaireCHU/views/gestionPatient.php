@@ -31,7 +31,7 @@ require_once '../controllers/gestionPatientController.php';
         <a class="col-lg btn btn-outline-secondary fs-3" href="home.php?results=home">Accueil</a>
         <a class="col-lg btn btn-outline-secondary fs-3" href="addPatient.php?results=addPatient">Ajout d'un patient</a>
         <a class="col-lg btn btn-outline-secondary fs-3" href="infoPatient.php?results=infoPatient">Informations patients</a>
-        <a class="col-lg btn btn-outline-secondary fs-3" href="">Prise de rendez-vous</a>
+        <a class="col-lg btn btn-outline-secondary fs-3" href="rdv.php?results=rdv">Prise de rendez-vous</a>
     </div>
 </header>
 

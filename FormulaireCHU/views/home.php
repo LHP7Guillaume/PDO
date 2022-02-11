@@ -38,12 +38,12 @@ require_once '../controllers/homeController.php';
     <div class="container overflow-hidden mt-5">
         <div class="row text-center g-4">
             <div >
-                <a class="myPhoto mybutton m-2 col-lg-4 btn btn-outline fs-3 text-white" href="addPatient.php?results=addPatient">Ajout d'un patient</a>
+                <a class="myPhoto mybutton m-2 col-lg-4 btn btn-outline-secondary fs-3 text-white" href="addPatient.php?results=addPatient">Ajout d'un patient</a>
                 <a class="myPhotoTwo mybutton m-2 col-lg-4 btn btn-outline-secondary fs-3 text-white" href="gestionPatient.php?results=gestionPatient">Gestion des patients</a>
             </div>
             <div>
                 <a class="myPhotoThree mybutton m-2 col-lg-4 btn btn-outline-secondary fs-3 text-white" href="infoPatient.php?results=infoPatient">Informations patients</a>
-                <a class="myPhotoFour mybutton m-2 col-lg-4 btn btn-outline-secondary fs-3 text-white" href="">Prise de rendez-vous</a>
+                <a class="myPhotoFour mybutton m-2 col-lg-4 btn btn-outline-secondary fs-3 text-white" href="rdv.php?results=rdv">Prise de rendez-vous</a>
             </div>
         </div>
     </div>
