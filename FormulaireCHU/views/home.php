@@ -43,7 +43,7 @@ require_once '../controllers/homeController.php';
             </div>
             <div>
                 <a class="myPhotoThree mybutton m-2 col-lg-4 btn btn-outline-secondary fs-3 text-white" href="infoPatient.php?results=infoPatient">Informations patients</a>
-                <a class="myPhotoFour mybutton m-2 col-lg-4 btn btn-outline-secondary fs-3 text-white" href="rdv.php?results=rdv">Prise de rendez-vous</a>
+                <a class="myPhotoFour mybutton m-2 col-lg-4 btn btn-outline-secondary fs-3 text-white" href="gestionRdv.php?results=gestionRdv">Gestion des rendez-vous</a>
             </div>
         </div>
     </div>

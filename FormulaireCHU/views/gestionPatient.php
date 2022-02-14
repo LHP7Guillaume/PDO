@@ -31,7 +31,7 @@ require_once '../controllers/gestionPatientController.php';
         <a class="col-lg btn btn-outline-secondary fs-3" href="home.php?results=home">Accueil</a>
         <a class="col-lg btn btn-outline-secondary fs-3" href="addPatient.php?results=addPatient">Ajout d'un patient</a>
         <a class="col-lg btn btn-outline-secondary fs-3" href="infoPatient.php?results=infoPatient">Informations patients</a>
-        <a class="col-lg btn btn-outline-secondary fs-3" href="rdv.php?results=rdv">Prise de rendez-vous</a>
+        <a class="col-lg btn btn-outline-secondary fs-3" href="gestionRdv.php?results=gestionRdv">Gestion des rendez-vous</a>
     </div>
 </header>
 
@@ -47,6 +47,7 @@ require_once '../controllers/gestionPatientController.php';
                 <th scope="col">Nom</th>
                 <th scope="col">Prénom</th>
                 <th scope="col">Informations patient</th>
+                <th scope="col">Rendez-vous patient</th>
                 <th scope="col">Supprimer la fiche patient</th>
             </tr>
         </thead>
@@ -63,6 +64,15 @@ require_once '../controllers/gestionPatientController.php';
 
                             <input type="hidden" name="idPatient" value="<?= $patient["id"] ?>">
                             <button class="btn btn-outline-primary btn-sm">Plus d'info</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="rdv.php" method="post">
+                            <!-- input de type hidden = input non visible coté FRONT 
+                            il permet de recuperer une valeur à l'aide du Name-->
+
+                            <input type="hidden" name="idPatient" value="">
+                            <button class="btn btn-outline-success btn-sm">Gestion RDV</button>
                         </form>
                     </td>
                     <td>
