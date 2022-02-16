@@ -1,7 +1,8 @@
 <?php
 
-require_once '../controllers/rdvController.php';
+require_once '../controllers/updateRdvController.php';
 require_once '../controllers/gestionPatientController.php';
+
 
 
 ?>
@@ -42,10 +43,13 @@ require_once '../controllers/gestionPatientController.php';
 
         <h1 class="mt-4 mb-4 text-center pb-4">Prise de rendez-vous des patients de l'hopital Gouzou</h1>
 
-        <?php if ($addRdvOk) { ?>
-            <p>Le rdv a bien été enregistré</p>
-            <a href="rdv.php" class="btn btn-primary">Ajouter un nouveau patient</a>
-        <?php } else { ?>
+
+
+        <?php
+
+        if ($rdv) {
+
+            var_dump($rdv); ?>
 
             <form action="" method="POST" novalidate>
                 <div class="mb-3">
@@ -54,12 +58,8 @@ require_once '../controllers/gestionPatientController.php';
                     <div class="input-group mb-3">
 
                         <label class="input-group-text" for="inputGroupSelect01">Mr / Mme</label>
-                        <select name="nameRDV" class="form-select" id="inputGroupSelect01">
-                            <option selected disabled>Nom du patient</option>
-                            <?php foreach ($gestionArray as $patient) { ?>
-                                <option value="<?= $patient["id"] ?>"><?= $patient['firstname'] ?> <?= $patient['lastname'] ?></option>
-                            <?php } ?>
-                        </select>
+
+                        <input value="<?= $rdv['lastname'] . " " . $rdv['firstname'] ?>" name="nom" type="text" class="form-control" id="nom" disabled>
                     </div>
 
 
@@ -68,7 +68,7 @@ require_once '../controllers/gestionPatientController.php';
                         $arrayError["rdvDate"] ?? "";
                         ?>
                     </span>
-                    <input value="<?= isset($_POST["rdvDate"]) ? htmlspecialchars($_POST["rdvDate"]) : "" ?>" name=" rdvDate" type="date" class="form-control" id="rdvDate" placeholder="24/03/2022" required>
+                    <input value="<?= isset($_POST["rdvDate"]) ? htmlspecialchars($_POST["rdvDate"]) : $date ?> " name=" rdvDate" type="date" class="form-control" id="rdvDate"" required <?= isset($_POST["rdvDate"]) ? "" : "disabled" ?>>
 
 
                     <label for="rdvTime" class="form-label mt-3">Choissez l'horaire du rendez-vous :</label><span class="text-danger">
@@ -80,7 +80,7 @@ require_once '../controllers/gestionPatientController.php';
 
 
                     <div class="text-center mt-4">
-                        <a href="gestionPatient.php" class="btn btn-outline-secondary">Retour gestions des patients</a>
+                        <a href="gestionRdv.php" class="btn btn-outline-secondary">Retour gestions des rdv</a>
                         <!-- <input type="hidden" name="idPatient" value="<?= $patient["id"] ?>"> -->
 
                         <button type="submit" href="" class="btn btn-primary">Enregistrer le rendez-vous</button>

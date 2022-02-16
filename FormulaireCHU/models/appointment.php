@@ -16,11 +16,39 @@ class Appointments extends DataBase
     public function getAllRdv(): array
     {
         $base = $this->connectDb();
-        $sql = "SELECT `patients`.`id`, `lastname`, `firstname`, `dateHour` FROM `patients` 
-        INNER JOIN `appointments`
-        ON `patients`.`id` = `appointments`.`idPatients`
+        $sql = "SELECT * FROM `appointments`
+        INNER JOIN `patients`
+        ON `appointments`.`idPAtients` = `patients`.`id`
         ORDER BY `dateHour`";
         $resultQuery = $base->query($sql);
         return $resultQuery->fetchAll();
+    }
+
+
+    public function getOneRdv($id): array
+    {
+        $base = $this->connectDb();
+        // $sql = "SELECT `patients`.`id`, `appointments`.`id`, `lastname`, `firstname`, `dateHour` FROM `patients` 
+        // INNER JOIN `appointments`
+        // ON `patients`.`id` = `appointments`.`idPatients` WHERE `id`= :id";
+        $sql = "SELECT * FROM `appointments`
+        INNER JOIN `patients`
+        ON `appointments`.`idPAtients` = `patients`.`id`
+        WHERE `appointments`.`id`=:id";
+        $resultQuery = $base->prepare($sql);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_INT);
+        $resultQuery->execute();
+
+        return $resultQuery->fetch();
+    }
+
+
+    public function deleteRdv($id): void
+    {
+        $base = $this->connectDb();
+        $sql = "DELETE FROM `appointments` WHERE `id`= :id";
+        $resultQuery = $base->prepare($sql);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_INT);
+        $resultQuery->execute();
     }
 }

@@ -2,11 +2,16 @@
 
 require '../config.php';
 require '../models/DataBase.php';
-require '../models/Patient.php';
 require '../models/appointment.php'; 
 
-$patientObj = new Appointments;
-$patients = $patientObj->getAllRdv();
 
-// $patientObj = new Patients;
-// $patients = $patientObj->GetAllPatient();
+
+if (isset($_POST["deleteRdv"])) {
+    $id = htmlspecialchars(trim($_POST["idDeleteRdv"]));
+    $appointmentObj = new Appointments();
+    $appointmentInfo = $appointmentObj->deleteRdv($id);
+}
+
+$appointmentObj = new Appointments;
+$appointments = $appointmentObj->getAllRdv();
+

@@ -2,7 +2,14 @@
 
 require_once '../controllers/gestionRdvController.php';
 
+// permet d'afficher la date en français :
 
+$days = [1=>"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+$month = [1=>"Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"];
+
+// conversion date en bon format en francais mais ne fonctionne pas en l'etat sur mac a revoir
+date_default_timezone_set('Europe/Paris');
+setlocale(LC_TIME, 'fr_FR', 'fr_FR.utf8', 'fra', 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
 
 ?>
 
@@ -49,21 +56,31 @@ require_once '../controllers/gestionRdvController.php';
                     <th scope="col">Nom</th>
                     <th scope="col">Prénom</th>
                     <th scope="col">Date et horaire du rdv</th>
-                    
+                    <th scope="col">Informations rdv</th>
                     <th scope="col">Supprimer le rdv</th>
                 </tr>
             </thead>
             <tbody>
 
-                <?php foreach ($patients as $patient) { ?>
+                <?php foreach ($appointments as $patient) { ?>
                     <tr>
                         <th scope="row"><?= $patient['firstname'] ?></th>
                         <td><?= $patient['lastname'] ?></td>
-                        <td><?= $patient['dateHour'] ?></td>
+                        <td><?=$days[date("N", strtotime($patient['dateHour']))] . " " . date("j", strtotime($patient['dateHour'])) . " " .  $month[date("n", strtotime($patient['dateHour']))] . " " . date("Y, H:i", strtotime($patient['dateHour']))?></td>
+                        <td>
+                           
+                        <form action="updateRdv.php" method="post">
+                            <!-- input de type hidden = input non visible coté FRONT 
+                            il permet de recuperer une valeur à l'aide du Name-->
+
+                            <input type="hidden" name="idRdv" value="<?= $patient[0] ?>">
+                            <button class="btn btn-outline-primary btn-sm">Plus d'info</button>
+                        </form>
+                    </td>
                       <td>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-<?= $patient["id"] ?>">
-                            Supprimer fiche
+                            Supprimer Rdv
                         </button>
                         </td>
                         <!-- Modal -->
@@ -71,7 +88,7 @@ require_once '../controllers/gestionRdvController.php';
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Supprimer fiche patient</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Supprimer rendez-vous patient</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -81,8 +98,8 @@ require_once '../controllers/gestionRdvController.php';
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Annuler</button>
                                         <form action="" method="POST">
-                                            <input type="hidden" name="idDeletePatient" value="<?= $patient["id"] ?>">
-                                            <button type="submit" name="deletePatient" class="btn btn-danger">Supprimer</button>
+                                            <input type="hidden" name="idDeleteRdv" value="<?= $patient["id"] ?>">
+                                            <button type="submit" name="deleteRdv" class="btn btn-danger">Supprimer</button>
                                         </form>
                                     </div>
                                 </div>
