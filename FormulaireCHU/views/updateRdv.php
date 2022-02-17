@@ -45,12 +45,8 @@ require_once '../controllers/gestionPatientController.php';
 
 
 
-        <?php
-
-        if ($rdv) {
-
-            var_dump($rdv); ?>
-
+        <?php if ($rdv) { ?>
+            <?= var_dump($_POST, $rdv) ?>;
             <form action="" method="POST" novalidate>
                 <div class="mb-3">
 
@@ -61,14 +57,19 @@ require_once '../controllers/gestionPatientController.php';
 
                         <input value="<?= $rdv['lastname'] . " " . $rdv['firstname'] ?>" name="nom" type="text" class="form-control" id="nom" disabled>
                     </div>
-
+                    <input hidden type="text" name="idPatient" value="<?= $rdv["id"] ?>">
+                    <input hidden type="text" name="idRdv" value="<?= $rdv[0] ?>">
 
                     <label for="rdvDate" class="form-label mt-3">Date du rendez-vous : </label><span class="text-danger">
                         <?=
                         $arrayError["rdvDate"] ?? "";
                         ?>
                     </span>
-                    <input value="<?= isset($_POST["rdvDate"]) ? htmlspecialchars($_POST["rdvDate"]) : $date ?> " name=" rdvDate" type="date" class="form-control" id="rdvDate"" required <?= isset($_POST["rdvDate"]) ? "" : "disabled" ?>>
+                    <?php
+                    $displayDate = ((!isset($_POST["rdvDate"]) || (empty($_POST["rdvDate"])))) ? $date : htmlspecialchars($_POST["rdvDate"]);
+                    $displayType = ((!isset($_POST["modifyBtnRdv"]) || (empty($_POST["modifyBtnRdv"]))))|| count($arrayError) != 0  ? "text" : "date";
+                    ?>
+                    <input value="<?= $displayDate ?>" name="rdvDate" type="<?= $displayType ?>" placeholder="24/12/2021" class="form-control" id="rdvDate" required <?= isset($_POST["modifyBtnRdv"]) || count($arrayError) != 0 ? "" : "disabled"; ?>>
 
 
                     <label for="rdvTime" class="form-label mt-3">Choissez l'horaire du rendez-vous :</label><span class="text-danger">
@@ -76,14 +77,19 @@ require_once '../controllers/gestionPatientController.php';
                         $arrayError["rdvTime"] ?? " ";
                         ?>
                     </span>
-                    <input value="<?= isset($_POST["rdvTime"]) ? htmlspecialchars($_POST["rdvTime"]) : "" ?>" name="rdvTime" type="time" class="form-control" id="rdvTime" placeholder="" required>
+                    <input value="<?= isset($_POST["rdvTime"]) ? htmlspecialchars($_POST["rdvTime"]) : $time ?>" name="rdvTime" type="time" class="form-control" id="rdvTime" placeholder="" required <?= isset($_POST["modifyBtnRdv"]) ? "" : "disabled"; ?>>
 
 
                     <div class="text-center mt-4">
                         <a href="gestionRdv.php" class="btn btn-outline-secondary">Retour gestions des rdv</a>
                         <!-- <input type="hidden" name="idPatient" value="<?= $patient["id"] ?>"> -->
 
-                        <button type="submit" href="" class="btn btn-primary">Enregistrer le rendez-vous</button>
+                        <?php if (!isset($_POST["modifyBtnRdv"])) { ?>
+                            <button type="submit" value="<?= $rdv[0] ?>" name="modifyBtnRdv" class="btn btn-outline-primary">Modifier le rendez-vous</button>
+                        <?php } elseif ((!isset($_POST["updateBtnRdv"]) && count($arrayError) == 0)) { ?>
+                            <button type="submit" name="updateBtnRdv" class="btn btn-outline-success">Enregistrer les modifications</button>
+
+                        <?php   } ?>
                     </div>
 
 

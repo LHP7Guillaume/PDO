@@ -51,4 +51,15 @@ class Appointments extends DataBase
         $resultQuery->bindValue(':id', $id, PDO::PARAM_INT);
         $resultQuery->execute();
     }
+
+    public function modifyAppointment($id, $dateHour)
+    {
+        $base = $this->connectDb();
+        $sql = "UPDATE `appointments` SET `dateHour`= :dateHour WHERE `id`= :id";
+        $resultQuery = $base->prepare($sql);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_INT);
+        $resultQuery->bindValue(':dateHour', $dateHour, PDO::PARAM_STR);
+        $resultQuery->execute();
+
+    }
 }
