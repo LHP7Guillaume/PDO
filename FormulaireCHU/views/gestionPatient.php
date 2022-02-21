@@ -114,6 +114,19 @@ require_once '../controllers/gestionPatientController.php';
         </tbody>
     </table>
 </div>
+<!-- toast -->
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-danger text-white">
+                <strong class="me-auto">Hopital Gouzou</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                La fiche du patient a été supprimé avec succès.
+            </div>
+        </div>
+    </div>
 
 
 
@@ -125,7 +138,15 @@ require_once '../controllers/gestionPatientController.php';
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
 </script>
+<script>
+        var toastTrigger = document.getElementById('liveToastBtn')
+        var toastLiveExample = document.getElementById('liveToast')
+        if (<?= $deletePatientOk ?>) {
+            var toast = new bootstrap.Toast(toastLiveExample)
 
+            toast.show()
+        }
+    </script>
 </body>
 
 </html>

@@ -64,7 +64,7 @@ if (!empty($_POST)) {
     } else {
         // Mise en place des paramètres pour l'analyse du reCaptcha
         $captcha = $_POST['g-recaptcha-response'];
-        $secretKey = '6LdzPW0eAAAAAAZDxWrwWqDA2py8XupynCiJhIpi';
+        $secretKey = '6LcoAWMeAAAAAHsjJ0Qa_GOirF5wn0GY24T9SYeg';
         $ip = $_SERVER['REMOTE_ADDR'];
 
         $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha);

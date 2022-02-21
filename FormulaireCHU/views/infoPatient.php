@@ -35,6 +35,7 @@ require_once '../controllers/infoPatientController.php';
             <a class="col-lg btn btn-outline-secondary fs-3" href="addPatient.php?results=addPatient">Ajout d'un patient</a>
             <a class="col-lg btn btn-outline-secondary fs-3" href="gestionPatient.php?results=gestionPatient">Gestion des patients</a>
             <a class="col-lg btn btn-outline-secondary fs-3" href="gestionRdv.php?results=gestionRdv">Gestion des rendez-vous</a>
+            <a class="col-lg btn btn-outline-secondary fs-3" href="rdv.php?results=rdv">Ajout d'un Rdv</a>
         </div>
     </header>
 

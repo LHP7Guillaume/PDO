@@ -2,7 +2,15 @@
 
 class Appointments extends DataBase
 {
-    public function recordAppointments(string $dateHour, int $idPatient)
+
+
+    /**
+     * Permet d'inserer le rdv dans la bdd
+     * 
+     * @param string $dateHour: ex. 2022-12-31 13:00:00
+     * @param int $idPatient: ex. 12
+     */
+    public function recordAppointments(string $dateHour, int $idPatient): void
     {
         $db = $this->connectDb();
         $sql = "INSERT INTO appointments (dateHour,idPatients) VALUES (:dateHour,:idPatient);";
@@ -13,10 +21,16 @@ class Appointments extends DataBase
     }
 
 
+    /**
+     * Permet de recuperer tous les rdv dans un tableau associatif 
+     * 
+     * @return array : tableau associatif avec pour clef le nom des champs de la table appointments
+     */
     public function getAllRdv(): array
     {
+        //Attention à l'utilisation de "*" car ambiguité avec les ID
         $base = $this->connectDb();
-        $sql = "SELECT * FROM `appointments`
+        $sql = "SELECT `patients`.`id` AS patientId, `appointments`.`id` AS rdvId, `lastname`, `firstname`, `dateHour` FROM `appointments`
         INNER JOIN `patients`
         ON `appointments`.`idPAtients` = `patients`.`id`
         ORDER BY `dateHour`";
@@ -25,41 +39,57 @@ class Appointments extends DataBase
     }
 
 
-    public function getOneRdv($id): array
+    /**
+     * Permet de recuperer toutes les infos d'un rdv sous forme d'un tableau selon son ID 
+     * 
+     * @param int $idRdv : ex. 105
+     * 
+     * @return array : tableau associatif avec pour clef le nom des champs de la table appointments
+     */
+    public function getOneRdv(int $idRdv): array
     {
         $base = $this->connectDb();
-        // $sql = "SELECT `patients`.`id`, `appointments`.`id`, `lastname`, `firstname`, `dateHour` FROM `patients` 
-        // INNER JOIN `appointments`
-        // ON `patients`.`id` = `appointments`.`idPatients` WHERE `id`= :id";
-        $sql = "SELECT * FROM `appointments`
+        $sql = "SELECT `patients`.`id` AS patientId, `appointments`.`id` AS rdvId, `lastname`, `firstname`, `dateHour`  FROM `appointments`
         INNER JOIN `patients`
         ON `appointments`.`idPAtients` = `patients`.`id`
         WHERE `appointments`.`id`=:id";
         $resultQuery = $base->prepare($sql);
-        $resultQuery->bindValue(':id', $id, PDO::PARAM_INT);
+        $resultQuery->bindValue(':id', $idRdv, PDO::PARAM_INT);
         $resultQuery->execute();
 
-        return $resultQuery->fetch();
+        return $resultQuery->fetch(PDO::FETCH_ASSOC);
     }
 
 
-    public function deleteRdv($id): void
+    /**
+     * Permet de supprimer un rdv par son Id
+     * 
+     * @param int $idRdv : ex. 99
+     */
+    public function deleteRdv(int $idRdv): void
     {
         $base = $this->connectDb();
         $sql = "DELETE FROM `appointments` WHERE `id`= :id";
         $resultQuery = $base->prepare($sql);
-        $resultQuery->bindValue(':id', $id, PDO::PARAM_INT);
+        $resultQuery->bindValue(':id', $idRdv, PDO::PARAM_INT);
         $resultQuery->execute();
     }
 
-    public function modifyAppointment($id, $dateHour)
+
+/**
+ * Permet de modifier un rdv 
+ * 
+ * @param int $rdvId : .ex class="102">
+ * @param string $dateHour : ex. 2022-12-31 13:00:00
+ */
+    public function modifyAppointment(int $rdvId, string $dateHour): void
     {
         $base = $this->connectDb();
         $sql = "UPDATE `appointments` SET `dateHour`= :dateHour WHERE `id`= :id";
         $resultQuery = $base->prepare($sql);
-        $resultQuery->bindValue(':id', $id, PDO::PARAM_INT);
+        $resultQuery->bindValue(':id', $rdvId, PDO::PARAM_INT);
         $resultQuery->bindValue(':dateHour', $dateHour, PDO::PARAM_STR);
         $resultQuery->execute();
-
     }
 }
+

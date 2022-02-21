@@ -8,28 +8,35 @@ $arrayError = [];
 
 $addRdvOk = false;
 
-
 $appointmentObj = new Appointments;
 $appointments = $appointmentObj->getAllRdv();
 
-var_dump($_POST);
 if (!empty($_POST)) {
 
-    if (!empty($_POST["rdvDate"]) && !empty($_POST["rdvTime"]) && !empty($_POST["nameRDV"])) {
+    if (!isset($_POST["idPatient"])) {
+        $arrayError["idPatient"] = "Veuillez selectionner un patient ";
+    }
+
+    if (empty($_POST["rdvDate"])){
+        $arrayError["rdvDate"] = "Veuillez selectionner une date de rendez-vous ";
+    }
+
+    if (empty($_POST["rdvTime"])){
+        $arrayError["rdvTime"] = "Veuillez selectionner un horaire de rendez-vous ";
+    }
+
+    if (!empty($_POST["rdvDate"]) && !empty($_POST["rdvTime"]) && !empty($_POST["idPatient"])) {
 
         $date = htmlspecialchars(trim($_POST["rdvDate"]));
         $time = htmlspecialchars(trim($_POST["rdvTime"]));
-        $idPatient = intval(htmlspecialchars(trim($_POST["nameRDV"])));
+        $idPatient = intval(htmlspecialchars(trim($_POST["idPatient"])));
 
         $dateHour = $date . " " . $time;
         $dateTime = strtotime($dateHour);
 
-        var_dump(time(), ($dateHour), ($dateTime), ($idPatient));
-
         if (time() >= $dateTime) {
             $arrayError["rdvDate"] = "Le rdv ne peut pas etre pris avant la date actuelle";
         }
-
 
         if (count($arrayError) == 0) {
             $appointmentObj = new Appointments;
@@ -39,3 +46,4 @@ if (!empty($_POST)) {
         }
     }
 }
+

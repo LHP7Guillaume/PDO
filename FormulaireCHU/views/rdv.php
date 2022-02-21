@@ -34,6 +34,7 @@ require_once '../controllers/gestionPatientController.php';
             <a class="col-lg btn btn-outline-secondary fs-3" href="gestionPatient.php?results=gestionPatient">Gestion des patients</a>
             <a class="col-lg btn btn-outline-secondary fs-3" href="infoPatient.php?results=infoPatient">Informations patients</a>
             <a class="col-lg btn btn-outline-secondary fs-3" href="addPatient.php?results=addPatient">Ajout un patient</a>
+            <a class="col-lg btn btn-outline-secondary fs-3" href="rdv.php?results=rdv">Ajout d'un Rdv</a>
         </div>
     </header>
 
@@ -43,21 +44,23 @@ require_once '../controllers/gestionPatientController.php';
         <h1 class="mt-4 mb-4 text-center pb-4">Prise de rendez-vous des patients de l'hopital Gouzou</h1>
 
         <?php if ($addRdvOk) { ?>
+            <div class="text-center">
             <p>Le rdv a bien été enregistré</p>
-            <a href="rdv.php" class="btn btn-primary">Ajouter un nouveau patient</a>
+            <a href="rdv.php" class="btn btn-primary">Ajouter un nouveau rendez-vous</a>
+            </div>
         <?php } else { ?>
 
             <form action="" method="POST" novalidate>
                 <div class="mb-3">
 
+                    <p class="text-danger"> <?= $arrayError["idPatient"] ?? "" ?> </p>
 
                     <div class="input-group mb-3">
-
                         <label class="input-group-text" for="inputGroupSelect01">Mr / Mme</label>
-                        <select name="nameRDV" class="form-select" id="inputGroupSelect01">
+                        <select name="idPatient" class="form-select" id="inputGroupSelect01">
                             <option selected disabled>Nom du patient</option>
                             <?php foreach ($gestionArray as $patient) { ?>
-                                <option value="<?= $patient["id"] ?>"><?= $patient['firstname'] ?> <?= $patient['lastname'] ?></option>
+                                <option value="<?= $patient["id"] ?>" <?= isset($_POST["idPatient"]) && $_POST["idPatient"] == $patient["id"] ? "selected" : ""  ?>  ><?= $patient['firstname'] ?> <?= $patient['lastname'] ?></option>
                             <?php } ?>
                         </select>
                     </div>

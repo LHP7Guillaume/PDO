@@ -27,26 +27,29 @@ require_once '../controllers/addPatientController.php';
 
 <body class="">
     <header class="mb-5">
-      
+
         <div class="row">
-        <a class="col-lg btn btn-outline-secondary fs-3" href="home.php?results=home">Accueil</a>
-        <a class="col-lg btn btn-outline-secondary fs-3" href="gestionPatient.php?results=gestionPatient">Gestion des patients</a>
-        <a class="col-lg btn btn-outline-secondary fs-3" href="infoPatient.php?results=infoPatient">Informations patients</a>
-        <a class="col-lg btn btn-outline-secondary fs-3" href="gestionRdv.php?results=gestionRdv">Gestion des rendez-vous</a>
-    </div>
+            <a class="col-lg btn btn-outline-secondary fs-3" href="home.php?results=home">Accueil</a>
+            <a class="col-lg btn btn-outline-secondary fs-3" href="gestionPatient.php?results=gestionPatient">Gestion des patients</a>
+            <a class="col-lg btn btn-outline-secondary fs-3" href="infoPatient.php?results=infoPatient">Informations patients</a>
+            <a class="col-lg btn btn-outline-secondary fs-3" href="gestionRdv.php?results=gestionRdv">Gestion des rendez-vous</a>
+            <a class="col-lg btn btn-outline-secondary fs-3" href="rdv.php?results=rdv">Ajout d'un Rdv</a>
+        </div>
     </header>
 
 
 
-    
+
 
     <div class="container mycontainer mt-5 col-6 mt-3 mb-5 shadow p-5">
 
         <h1 class="text-center mt-4">Nouveau patient</h1>
 
         <?php if ($addPatientOk) { ?>
-            <p>Le patient a bien été enregistré</p>
-            <a href="addPatient.php" class="btn btn-primary">Ajouter un nouveau patient</a>
+            <div class="text-center">
+                <p>Le patient a bien été enregistré</p>
+                <a href="addPatient.php" class="btn btn-primary">Ajouter un nouveau patient</a>
+            </div>
         <?php } else { ?>
 
 
@@ -95,7 +98,7 @@ require_once '../controllers/addPatientController.php';
                     $arrayError["reCaptcha"] ?? " ";
                     ?>
                 </span>
-                <div class="g-recaptcha" data-sitekey="6LdzPW0eAAAAADJs5UEUokjHWzUNeueMUnl5YAjs"></div>
+                <div class="g-recaptcha" data-sitekey="6LcoAWMeAAAAAEcKRd7ejrnwF5jFyxNF2raxYGfP"></div>
 
                 <div class="text-center mt-4">
                     <button type="submit" href="" class="btn btn-primary">Enregistrer le nouveau Patient</button>
@@ -107,7 +110,7 @@ require_once '../controllers/addPatientController.php';
 
     <footer class="mt-5 ">
         <div>
-        <h2 class="text-center fs-6 p-4">@ LaManu 2022</h2>
+            <h2 class="text-center fs-6 p-4">@ LaManu 2022</h2>
         </div>
     </footer>
 
